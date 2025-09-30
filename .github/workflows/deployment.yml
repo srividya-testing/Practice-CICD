@@ -22,4 +22,31 @@ env:
   DEFAULT_TAG: 1.0.0
   CHART_DIR: charts/nodeapp
   RELEASE_NAME: nodeapp
-  DEFAULT_NAMESPACE: app-d_
+  DEFAULT_NAMESPACE: app-demo
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    outputs:
+      image_ref: ${{ steps.set_ref.outputs.image_ref }}
+      image_tag: ${{ steps.extract_tag.outputs.tag }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: List repo files for debugging
+        run: ls -R
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Cache npm
+        uses: actions/cache@v3
