@@ -66,9 +66,10 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set image reference
-        id: set_ref
-        run: |
-          TAG="${{ github.event.inputs.image_tag }}"
-          if [ -z "$TAG" ]; then TAG="${{ env.DEFAULT_TAG }}"; fi
-          IMAGE_REF="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$TAG"
-          echo "image_ref=$IMAGE_REF" >> $GITH
+  id: set_ref
+  run: |
+    TAG="${{ github.event.inputs.image_tag }}"
+    if [ -z "$TAG" ]; then TAG="${{ env.DEFAULT_TAG }}"; fi
+    IMAGE_REF="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$TAG"
+    echo "image_ref=$IMAGE_REF" >> $GITHUB_OUTPUT
+
