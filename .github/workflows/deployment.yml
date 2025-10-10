@@ -30,7 +30,7 @@ permissions:
 
 jobs:
   build-and-push:
-    runs-on: ubuntu-latest
+    runs-on: [self,ubuntu-latest]
     outputs:
       image_ref: ${{ steps.set_ref.outputs.image_ref }}
       image_tag: ${{ steps.extract_tag.outputs.tag }}
